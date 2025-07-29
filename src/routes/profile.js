@@ -33,4 +33,14 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
   }
 });
 
+profileRouter.patch("/profile/password",userAuth,async (req,res)=>{
+
+  const loggedInUser=req.user;
+  
+
+
+  res.send("Password")
+})
+
+
 module.exports = profileRouter;
