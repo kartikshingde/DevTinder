@@ -77,3 +77,21 @@ HW*
 - Create PATCH /profile/password Api =>forgot password api
 - Make sure, validate all data in every POST,PATCH API's
 
+//EP12
+
+- Create a connectionRequest Schema
+- Send Connection Request API
+- Proper validation of Data
+- Think about all CORNER Cases
+- $or query in mongoDB *** also there is $and query and  ...
+
+- Schema.pre("save",function(){}) => like a middleware before saving the model
+
+
+- Think about indexes in MongoDB
+- Read more about indexes in mongoDB
+- Why do we need index in DB
+- What is the advantages and disadvantages of creating?
+- Read article of Compound Index
+
+- ALWAYS THINK ABOUT CORNER CASES

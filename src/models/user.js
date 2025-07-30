@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       minLength: 4,
       maxLength: 50,
+      index:true
     },
     lastName: {
       type: String,
@@ -44,6 +45,10 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
+      enum:{
+        values:["male","female","others"],
+        message:`{VALUE} is not a valid gender type`
+      },
       validate(value) {
         if (!["male", "female", "others"].includes(value)) {
           throw new Error("Gender is not Valid");
@@ -66,10 +71,17 @@ const userSchema = new mongoose.Schema(
     },
     skills: {
       type: [String],
+      index:true
     },
   },
   { timestamps: true }
 );
+
+// User.find({firstName:"Kartik",lastName:"Shingde"});=>this type query becomes very fast
+userSchema.index({firstName:1,lastName:1});
+
+userSchema.index({gender:1});
+
 
 userSchema.methods.getJWT = async function () {
   const user = this;
