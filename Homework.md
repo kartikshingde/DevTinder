@@ -4,10 +4,10 @@ Backend Development
 <!-- sync or async, non-strict and script -->
 <!-- calculator folder to export them in one go -->
 
-
 <!-- DOminos Example -->
 
 HomeWork:=>
+
 - app.use() vs app.all()
 - Write a dummy auth middleware for admin
 - Write a dummy auth middleware for all routes, except /user/login
@@ -19,7 +19,8 @@ HomeWork:=>
 - Push some document using API with Postman
 - Error handling using try Catch.
 
-HW*
+HW\*
+
 - API- Get user by Email'
 - API - Get /feed - get all the users from the database
 - get Users BY ID;
@@ -38,13 +39,14 @@ HW*
 
 - add API level validations on Patch request and signup post api
 - add api validation for each field
-// this is data sanitization
+  // this is data sanitization
 
--Install validator 
+-Install validator
 -Explore validator library functions and use for password email photoUrl
-//note: NEVER TRUST req.body  ...always keep validations
+//note: NEVER TRUST req.body ...always keep validations
 
 //EP09
+
 - validate data in SignUp API
 - Install bcrypt package
 - Create a passwordHash using bcrypt.hash() and save the user with encrypted password
@@ -52,11 +54,12 @@ HW*
 - Compare Passwords and throw error if not valid
 
 //EP10
+
 - install cookie-parser , just send a dummy cookie to user.
 - Create GET /profile API and check if you get the cookie back
 - install jsonwebtoken
-- In login API,after email and password validation,  create a jwt token and send it back to user inside cookies
-- read cookies inside  your profile API and find the logged in user.
+- In login API,after email and password validation, create a jwt token and send it back to user inside cookies
+- read cookies inside your profile API and find the logged in user.
 - userAuth middleware
 - Add the userAuth middleware in profile API and send new sendConnectionRequest API
 - Set the expiry of JWT token and cookies to 7 days
@@ -83,10 +86,9 @@ HW*
 - Send Connection Request API
 - Proper validation of Data
 - Think about all CORNER Cases
-- $or query in mongoDB *** also there is $and query and  ...
+- $or query in mongoDB \*\*\* also there is $and query and ...
 
 - Schema.pre("save",function(){}) => like a middleware before saving the model
-
 
 - Think about indexes in MongoDB
 - Read more about indexes in mongoDB
@@ -98,4 +100,8 @@ HW*
 
 //EP13
 
-- Write code with proper validations for POST /request/review/:status/:requestId
+- Write code with proper validations for POST /request/review/:status/:request
+
+- \*Thought Process - POST vs GET
+- \*\*Read about ref and populate -> https://mongoosejs.com/docs/populate.html
+- Create GET /user/requests/received API for request received

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       minLength: 4,
       maxLength: 50,
-      index:true
+      index: true,
     },
     lastName: {
       type: String,
@@ -45,9 +45,9 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum:{
-        values:["male","female","others"],
-        message:`{VALUE} is not a valid gender type`
+      enum: {
+        values: ["male", "female", "others"],
+        message: `{VALUE} is not a valid gender type`,
       },
       validate(value) {
         if (!["male", "female", "others"].includes(value)) {
@@ -71,17 +71,16 @@ const userSchema = new mongoose.Schema(
     },
     skills: {
       type: [String],
-      index:true
+      index: true,
     },
   },
   { timestamps: true }
 );
 
 // User.find({firstName:"Kartik",lastName:"Shingde"});=>this type query becomes very fast
-userSchema.index({firstName:1,lastName:1});
+userSchema.index({ firstName: 1, lastName: 1 });
 
-userSchema.index({gender:1});
-
+userSchema.index({ gender: 1 });
 
 userSchema.methods.getJWT = async function () {
   const user = this;
@@ -95,7 +94,7 @@ userSchema.methods.validatePassword = async function (userInputPassword) {
 
   const passwordHash = user.password;
 
-  const isPasswordValid=await bcrypt.compare(userInputPassword,passwordHash)
+  const isPasswordValid = await bcrypt.compare(userInputPassword, passwordHash);
 
   return isPasswordValid;
 };
