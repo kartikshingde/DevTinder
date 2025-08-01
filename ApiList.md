@@ -24,6 +24,6 @@
 
 - GET user/request/received
 - GET user/connections
-- GET user/feed - Gets you the profiles of other users on platform
+- GET user/feed - *IMP and Tough  Gets you the profiles of other users on platform 
 
 Status: ignored,interested,accepted,rejected
