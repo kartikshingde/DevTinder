@@ -52,8 +52,16 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 });
 
 userRouter.get("/feed", userAuth, async (req, res) => {
+  // we can make feed api based on similar skills, similar age,similar about and anything...
   try {
     const loggedInUser = req.user;
+
+    const page = parseInt(req.query.page) || 1;
+
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 50 ? 50 : limit;
+
+    const skip = (page - 1) * limit;
 
     //Find all connection requests( sent + received)
     const connectionRequests = await ConnectionRequest.find({
@@ -74,9 +82,12 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         },
         { _id: { $ne: loggedInUser._id } },
       ],
-    }).select(USER_SAFE_DATA);
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
 
-    res.send(users);
+    res.json({ data: users });
   } catch (err) {
     res.status(400).send("ERROR: " + err.message);
   }

@@ -105,4 +105,4 @@ HW\*
 - \*Thought Process - POST vs GET
 - \*\*Read about ref and populate -> https://mongoosejs.com/docs/populate.html
 - Create GET /user/requests/received API for request received
-- Create GET /user/connections => done..
+- Create GET /user/connections
