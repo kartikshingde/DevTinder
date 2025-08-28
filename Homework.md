@@ -106,3 +106,8 @@ HW\*
 - \*\*Read about ref and populate -> https://mongoosejs.com/docs/populate.html
 - Create GET /user/requests/received API for request received
 - Create GET /user/connections
+
+
+// EP14
+- done /feed api
+- pagination- so that 10 users per page render first
