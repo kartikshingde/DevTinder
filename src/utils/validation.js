@@ -15,7 +15,7 @@ const validateProfileEditData = (req) => {
   const allowedEditFields = [
     "firstName",
     "lastName",
-    "emailId",
+    "email",
     "profileUrl",
     "gender",
     "age",
