@@ -1,5 +1,5 @@
 const { userAuth } = require("../middlewares/auth");
-const { getUploadUrl } = require("./s3Handler");
+const { getUploadUrl, getDownloadUrl } = require("./s3Handler");
 
 const express = require("express");
 
@@ -15,9 +15,27 @@ s3Router.post("/get-upload-url", async (req, res) => {
     filename;
     const contentType = "image/jpeg";
     const result = await getUploadUrl(filename, contentType);
-
+    console.log(result);
     res.json({ uploadUrl: result.url, key: result.key });
-  } catch (err) {}
+  } catch (err) {
+    res.send("error generating upload Url" + err.message);
+  }
+});
+
+s3Router.post("/get-download-url", async (req, res) => {
+  try {
+    const {key} = req.body;
+    if (!key) {
+      return res.status(400).json({ error: "No key !" });
+    }
+
+    const donwnloadUrl = await getDownloadUrl(key); 
+    // console.log(donwnloadUrl)
+
+    res.json({ donwnloadUrl});
+  } catch (err) {
+    res.send("Error generating download url: " + err.message);
+  }
 });
 
 module.exports = s3Router;

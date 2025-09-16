@@ -1,4 +1,4 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3"
+import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3"
 import { S3Client } from "@aws-sdk/client-s3";
 
 import dotenv from "dotenv"
@@ -31,4 +31,25 @@ export const getUploadUrl=async(filename,contentType)=>{
         throw err;
     }
 
+}
+
+export const getDownloadUrl=async(key)=>{
+
+    try{
+
+        const command=new GetObjectCommand({
+            Bucket:process.env.AWS_BUCKET_NAME,
+            Key:key
+        })
+
+        const url=await getSignedUrl(s3Client,command,{expiresIn:3600});
+        console.log(url);
+
+        return url;
+
+
+    }catch(err){
+        console.error("Error generating download url: ",err);
+        throw err;
+    }
 }
