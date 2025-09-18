@@ -37,12 +37,8 @@ export const getDownloadUrl=async(key)=>{
 
     try{
 
-        const command=new GetObjectCommand({
-            Bucket:process.env.AWS_BUCKET_NAME,
-            Key:key
-        })
 
-        const url=await getSignedUrl(s3Client,command,{expiresIn:3600});
+        const url=process.env.CLOUDFRONT_DOMAIN +key;
         // console.log(url);
 
         return url;
