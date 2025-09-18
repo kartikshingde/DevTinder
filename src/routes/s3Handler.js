@@ -43,7 +43,7 @@ export const getDownloadUrl=async(key)=>{
         })
 
         const url=await getSignedUrl(s3Client,command,{expiresIn:3600});
-        console.log(url);
+        // console.log(url);
 
         return url;
 
