@@ -6,8 +6,6 @@ const validateSignUpData = (req) => {
     throw new Error("Name is not valid!");
   } else if (!validator.isEmail(email)) {
     throw new Error("Email is not valid");
-  } else if (!validator.isStrongPassword(password)) {
-    throw new Error("Please enter a string password");
   }
 };
 
@@ -31,4 +29,4 @@ const validateProfileEditData = (req) => {
   return isEditAllowed;
 };
 
-module.exports = { validateSignUpData,validateProfileEditData };
+module.exports = { validateSignUpData, validateProfileEditData };
