@@ -2,8 +2,14 @@ const express = require("express");
 const connectDB = require("./src/config/database");
 const app = express();
 
-const cors = require("cors");
-app.use(cors());
+const cors=require("cors")
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    
+  })
+);
 
 const cookieParser = require("cookie-parser");
 app.use(express.json());
@@ -13,17 +19,21 @@ const authRouter = require("./src/routes/auth");
 const profileRouter = require("./src/routes/profile");
 const requestRouter = require("./src/routes/request");
 const userRouter = require("./src/routes/user");
-const s3Router = require("./src/routes/s3Router");
+const  s3Router  = require("./src/routes/s3Router");
+
 
 app.use("/", authRouter);
-app.use("/", profileRouter);
-app.use("/", requestRouter);
-app.use("/", userRouter);
-app.use("/", s3Router);
+app.use("/",profileRouter);
+app.use("/",requestRouter);
+app.use("/",userRouter)
+app.use("/",s3Router)
 
-app.get("/", (req, res) => {
-  res.send("hello from express on Vercel !");
-});
+app.get("/",(req,res)=>{
+  res.send("hello from express on Vercel !")
+})
+
+
+
 
 connectDB()
   .then(() => {
@@ -36,4 +46,4 @@ connectDB()
     console.log("Database Connection Failed..." + err);
   });
 
-module.exports = app;
+module.exports=app;
