@@ -1,5 +1,5 @@
 const express = require("express");
-const connectDB = require("./config/database");
+const connectDB = require("./src/config/database");
 const app = express();
 
 const cors=require("cors")
@@ -14,11 +14,11 @@ const cookieParser = require("cookie-parser");
 app.use(express.json());
 app.use(cookieParser());
 
-const authRouter = require("./routes/auth");
-const profileRouter = require("./routes/profile");
-const requestRouter = require("./routes/request");
-const userRouter = require("./routes/user");
-const  s3Router  = require("./routes/s3Router");
+const authRouter = require("./src/routes/auth");
+const profileRouter = require("./src/routes/profile");
+const requestRouter = require("./src/routes/request");
+const userRouter = require("./src/routes/user");
+const  s3Router  = require("./src/routes/s3Router");
 
 
 app.use("/", authRouter);
