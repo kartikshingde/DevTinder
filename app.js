@@ -27,6 +27,10 @@ app.use("/",requestRouter);
 app.use("/",userRouter)
 app.use("/",s3Router)
 
+app.get("/",(req,res)=>{
+  res.send("hello from express on Vercel !")
+})
+
 
 
 
@@ -40,3 +44,5 @@ connectDB()
   .catch((err) => {
     console.log("Database Connection Failed..." + err);
   });
+
+module.exports=app;
