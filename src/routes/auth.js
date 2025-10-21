@@ -56,8 +56,8 @@ authRouter.post("/login", async (req, res) => {
       // Add the token to cookie and send the response back to the User
       res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // HTTPS only in production
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // cross-origin
+      secure: true,
+      sameSite: "none",
       maxAge: 8 * 3600 * 1000, // 8 hours
     });
 
