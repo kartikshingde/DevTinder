@@ -7,7 +7,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://silly-meringue-ba74d1.netlify.app",
+      "https://devconnectbykartik.netlify.app/",
     ],
     credentials: true,
   })
