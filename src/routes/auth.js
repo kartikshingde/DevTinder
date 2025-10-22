@@ -6,14 +6,15 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 
+// ✅ SIGNUP
 authRouter.post("/signup", async (req, res) => {
   try {
-    // validate user
+    // validate user data
     validateSignUpData(req);
 
     const { firstName, lastName, email, password } = req.body;
 
-    //Encrypt pass
+    // Encrypt password
     const hashPass = await bcrypt.hash(password, 10);
 
     const user = new User({
@@ -26,19 +27,22 @@ authRouter.post("/signup", async (req, res) => {
     const savedUser = await user.save();
     const token = await savedUser.getJWT();
 
+    // ✅ Set cookie (works in both localhost & production)
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production", // HTTPS only in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // cross-site cookie
+      path: "/", // make cookie accessible to all routes
       maxAge: 8 * 3600 * 1000, // 8 hours
     });
 
     res.json({ message: "User Added successfully!", data: savedUser });
   } catch (err) {
-    res.status(400).send("Some Error Occured " + err.message);
+    res.status(400).send("Some Error Occurred " + err.message);
   }
 });
 
+// ✅ LOGIN
 authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -46,22 +50,25 @@ authRouter.post("/login", async (req, res) => {
     if (!validator.isEmail(email)) {
       throw new Error("Invalid Email");
     }
+
     const user = await User.findOne({ email: email });
     if (!user) {
       throw new Error("Invalid Credentials");
     }
+
     const isPasswordValid = await user.validatePassword(password);
 
     if (isPasswordValid) {
-      // Create a jwt token
+      // Create JWT token
       const token = await user.getJWT();
 
-      // Add the token to cookie and send the response back to the User
+      // ✅ Set cookie properly
       res.cookie("token", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 8 * 3600 * 1000, // 8 hours
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+        path: "/",
+        maxAge: 8 * 3600 * 1000,
       });
 
       res.send(user);
@@ -73,12 +80,14 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
+// ✅ LOGOUT
 authRouter.post("/logout", async (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    expires: new Date(0)
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    path: "/",
+    expires: new Date(0),
   });
   res.send("LogOut Successful!!");
 });
