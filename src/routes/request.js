@@ -106,14 +106,10 @@ requestRouter.post("/request/review/:status/:requestId",userAuth,async (req,res)
 
 
 
-  }catch(err){
-    res.status(400).send("ERROR: "+err.message)
+  } catch(err) {
+    res.status(400).send("ERROR: " + err.message);
   }
-  const loggedInUser=req.user;
-
-
-
-})
+});
 
 
 module.exports=requestRouter;

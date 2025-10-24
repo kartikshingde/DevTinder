@@ -34,15 +34,20 @@ app.get("/", (req, res) => {
   res.send("hello from express on Vercel !");
 });
 
+// Connect to database
 connectDB()
   .then(() => {
     console.log("Database connection Established.");
-    app.listen(7777, () => {
-      console.log("App is listening on port 7777");
-    });
   })
   .catch((err) => {
     console.log("Database Connection Failed..." + err);
   });
+
+// Only start server if not in Vercel environment
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(7777, () => {
+    console.log("App is listening on port 7777");
+  });
+}
 
 module.exports = app;

@@ -33,14 +33,15 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
   }
 });
 
-profileRouter.patch("/profile/password",userAuth,async (req,res)=>{
-
-  const loggedInUser=req.user;
-  
-
-
-  res.send("Password")
-})
+profileRouter.patch("/profile/password", userAuth, async (req, res) => {
+  try {
+    const loggedInUser = req.user;
+    // TODO: Implement password change logic
+    res.send("Password change functionality not implemented yet");
+  } catch (err) {
+    res.status(400).send("ERROR: " + err.message);
+  }
+});
 
 
 module.exports = profileRouter;

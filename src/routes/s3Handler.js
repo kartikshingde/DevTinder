@@ -1,9 +1,8 @@
-import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3"
-import { S3Client } from "@aws-sdk/client-s3";
+const { GetObjectCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
-import dotenv from "dotenv"
-dotenv.config()
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+require("dotenv").config();
 
 const s3Client=new S3Client({
     region:process.env.AWS_REGION,
@@ -13,7 +12,7 @@ const s3Client=new S3Client({
     }
 })
 
-export const getUploadUrl=async(filename,contentType)=>{
+const getUploadUrl = async (filename, contentType) => {
     try{
         // console.log(filename.filename)
         const key=`devTinder/profilePhotos/${filename.filename}-${Date.now()}`;
@@ -33,7 +32,7 @@ export const getUploadUrl=async(filename,contentType)=>{
 
 }
 
-export const getDownloadUrl=async(key)=>{
+const getDownloadUrl = async (key) => {
 
     try{
 
@@ -44,8 +43,10 @@ export const getDownloadUrl=async(key)=>{
         return url;
 
 
-    }catch(err){
-        console.error("Error generating download url: ",err);
+    } catch(err) {
+        console.error("Error generating download url: ", err);
         throw err;
     }
-}
+};
+
+module.exports = { getUploadUrl, getDownloadUrl };
